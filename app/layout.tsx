@@ -6,6 +6,18 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 export const metadata: Metadata = {
   title: "Notion Clone",
   description: "Notion clone app",
+  icons: [
+    {
+      media: "(prefers-color-scheme: light)",
+      url: "/logo.svg",
+      href: "/logo.svg",
+    },
+    {
+      media: "(prefers-color-scheme: dark)",
+      url: "/logo-dark.svg",
+      href: "/logo-dark.svg",
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -15,9 +27,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
       <body className={GeistSans.className}>
         <ThemeProvider
           attribute="class"
