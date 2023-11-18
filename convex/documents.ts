@@ -3,7 +3,7 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { Doc, Id } from "./_generated/dataModel";
 
-const get = query({
+export const get = query({
   handler: async (ctx) => {
     //This is Authentication
     const identity = await ctx.auth.getUserIdentity();

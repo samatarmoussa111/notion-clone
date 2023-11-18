@@ -13,7 +13,7 @@ const Documents = () => {
   const { user } = useUser();
   const create = useMutation(api.documents.create);
 
-  const onCreate = () => {
+  const handleCreate = () => {
     const promise = create({
       title: "Untitled",
     });
@@ -43,7 +43,7 @@ const Documents = () => {
       <Typography variant="h3" component="h2">
         Welcome to {user?.lastName}&apos;s Jotion
       </Typography>
-      <Button onClick={onCreate}>
+      <Button onClick={handleCreate}>
         <PlusCircle className="h-4 w-4 mr-2" />
         Create a note
       </Button>
