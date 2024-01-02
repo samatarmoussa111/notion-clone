@@ -9,6 +9,7 @@ import {
   PlusCircle,
   Search,
   Settings,
+  TrashIcon,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
@@ -19,6 +20,12 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import DocumentList from "./document-list";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import TrashBox from "./trash-box";
 
 const Navigation = () => {
   const create = useMutation(api.documents.create);
@@ -138,6 +145,17 @@ const Navigation = () => {
         <div className="mt-4">
           <DocumentList />
           <Item onClick={handleCreate} label="Add a page" icon={Plus} />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item label="Trash" icon={TrashIcon} />
+            </PopoverTrigger>
+            <PopoverContent
+              side={isMobile ? "bottom" : "right"}
+              className="p-0 w-72"
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
         </div>
         <div
           onMouseDown={handleMouseDown}
