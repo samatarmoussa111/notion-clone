@@ -91,14 +91,16 @@ const TrashBox = () => {
               >
                 <Undo className="h-4 w-4 text-muted-foreground" />
               </div>
-              <ConfirmModal onConfirm={() => onRemove(document._id)}>
-                <div
-                  role="button"
-                  className="rounded-sm p-2 hover:bg-slate-200"
-                >
-                  <Trash className="h-4 w-4 text-muted-foreground" />
-                </div>
-              </ConfirmModal>
+              <div onClick={(e) => e.stopPropagation()}>
+                <ConfirmModal onConfirm={() => onRemove(document._id)}>
+                  <div
+                    role="button"
+                    className="rounded-sm p-2 hover:bg-slate-200"
+                  >
+                    <Trash className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </ConfirmModal>
+              </div>
             </div>
           </div>
         ))}
