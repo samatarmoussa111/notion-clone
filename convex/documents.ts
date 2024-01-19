@@ -50,6 +50,29 @@ export const getSearch = query({
   },
 });
 
+export const getById = query({
+  args: {
+    id: v.id("documents"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getUserIdIfAuthenticated(ctx);
+    const document = await ctx.db.get(args.id);
+    if (!document) {
+      throw new Error("Document not found");
+    }
+
+    if (document.isPublished && !document.isArchived) {
+      return document;
+    }
+
+    if (document.userId !== userId) {
+      throw new Error("Unauthorized to access this document");
+    }
+
+    return document;
+  },
+});
+
 export const create = mutation({
   args: {
     title: v.string(),
@@ -169,6 +192,34 @@ export const remove = mutation({
     }
 
     const document = await ctx.db.delete(args.id);
+
+    return document;
+  },
+});
+
+export const update = mutation({
+  args: {
+    id: v.id("documents"),
+    title: v.optional(v.string()),
+    content: v.optional(v.string()),
+    coverImage: v.optional(v.string()),
+    icon: v.optional(v.string()),
+    isPublished: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const userId = await getUserIdIfAuthenticated(ctx);
+    const { id, ...rest } = args;
+    const existingDocument = await ctx.db.get(args.id);
+
+    if (!existingDocument) {
+      throw new Error("Document not found");
+    }
+
+    if (existingDocument.userId !== userId) {
+      throw new Error("Not authorized to update this document");
+    }
+
+    const document = ctx.db.patch(args.id, { ...rest });
 
     return document;
   },
