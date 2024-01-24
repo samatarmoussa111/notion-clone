@@ -86,12 +86,12 @@ const Toolbar = ({ initialData, preview }: Props) => {
       )}
 
       <div className="opacity-0 group-hover:opacity-100  flex items-center gap-x-1 py-4">
-        {!initialData && !preview && (
+        {!initialData.icon && !preview && (
           <IconPicker asChild onChange={onIconSelect}>
             <Button
               className="text-muted-foreground text-xs"
               variant="outline"
-              size="icon"
+              size="sm"
             >
               <Smile className="h-4 w-4 mr-2" /> Add Icon
             </Button>
@@ -117,7 +117,10 @@ const Toolbar = ({ initialData, preview }: Props) => {
           className="text-5xl bg-transparent font-bold break-words outline-none text-[#3f3f3f] dark:text-[#cfcfcf] resize-none"
         />
       ) : (
-        <div className="pb-[11.5px] text-5xl font-bold break-words outline-none  text-[#3f3f3f] dark:text-[#cfcfcf]">
+        <div
+          onClick={enableInput}
+          className="pb-[11.5px] text-5xl font-bold break-words outline-none  text-[#3f3f3f] dark:text-[#cfcfcf]"
+        >
           {initialData.title}
         </div>
       )}
